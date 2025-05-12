@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-prisma-database",
+  "version": "1.0.0",
+  "description": "nodejs-prisma-database",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "author": "Farid Azhari Nurcahyo",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.27.2",
+    "@types/jest": "^29.5.14",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
+}
