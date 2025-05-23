@@ -35,6 +35,5 @@ describe('Select fields', () => {
             expect(customer.name).toBeDefined()
             expect(customer.email).toBeUndefined();
             expect(customer.phone).toBeUndefined();}
-
     });
 })
