@@ -125,6 +125,13 @@ exports.Prisma.SampleScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.CustomerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -135,9 +142,17 @@ exports.Prisma.sampleOrderByRelevanceFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.CustomerOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone'
+};
+
 
 exports.Prisma.ModelName = {
-  sample: 'sample'
+  sample: 'sample',
+  Customer: 'Customer'
 };
 
 /**
