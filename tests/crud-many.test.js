@@ -21,4 +21,32 @@ describe('CRUD Many', () => {
         expect(count).toBe(2);
     });
 
-})
+    it("should be able to update many", async () => {
+        const { count } = await prismaClient.customer.updateMany({
+            data: {
+                email: "farid9@test.com"
+            },
+            where: {
+                name: "Farid"
+            }
+        })
+
+        expect(count).toBe(1);
+    })
+
+    it("should be able to delete many", async () => {
+        const { count } = await prismaClient.customer.deleteMany({
+
+            where: {
+                name: "Farid"
+            }
+        })
+        expect(count).toBe(1);
+    })
+
+
+    it("should be able to find many", async () => {
+        const customers = await prismaClient.customer.findMany({})
+        expect(customers.length).toBe(19);
+    })
+});
