@@ -12,6 +12,13 @@ describe('group by', () => {
             },
             _avg: {
                 price: true
+            },
+            having: {
+                price: {
+                   _avg: {
+                       gt: 3000
+                   }
+                }
             }
         });
 
