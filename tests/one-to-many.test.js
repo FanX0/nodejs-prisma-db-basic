@@ -44,21 +44,26 @@ describe('Prisma Client', function () {
         });
     });
 
-    it('should can find and many relation', async () => {
+    it('should can find many with many to many relation', async () => {
         const customers = await prismaClient.customer.findMany({
             where: {
-                comments: {
+                likes: {
                     some: {
-                        title: {
-                            contains: "Comment"
+                        product: {
+                            name: {
+                                contains: "A"
+                            }
                         }
                     }
                 }
             },
             include: {
-                comments: true
+                likes: {
+                    include: {
+                        product: true
+                    }
+                }
             }
         });
-        console.info(JSON.stringify(customers));
     });
 });

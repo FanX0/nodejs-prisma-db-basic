@@ -1360,12 +1360,14 @@ export namespace Prisma {
 
   export type CustomerCountOutputType = {
     comments: number
-    Like: number
+    likes: number
+    loves: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | CustomerCountOutputTypeCountCommentsArgs
-    Like?: boolean | CustomerCountOutputTypeCountLikeArgs
+    likes?: boolean | CustomerCountOutputTypeCountLikesArgs
+    loves?: boolean | CustomerCountOutputTypeCountLovesArgs
   }
 
   // Custom InputTypes
@@ -1389,8 +1391,15 @@ export namespace Prisma {
   /**
    * CustomerCountOutputType without action
    */
-  export type CustomerCountOutputTypeCountLikeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LikeWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountLovesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
   }
 
 
@@ -1399,11 +1408,13 @@ export namespace Prisma {
    */
 
   export type ProductCountOutputType = {
-    Like: number
+    likedBy: number
+    lovedBy: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Like?: boolean | ProductCountOutputTypeCountLikeArgs
+    likedBy?: boolean | ProductCountOutputTypeCountLikedByArgs
+    lovedBy?: boolean | ProductCountOutputTypeCountLovedByArgs
   }
 
   // Custom InputTypes
@@ -1420,8 +1431,15 @@ export namespace Prisma {
   /**
    * ProductCountOutputType without action
    */
-  export type ProductCountOutputTypeCountLikeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProductCountOutputTypeCountLikedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LikeWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountLovedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerWhereInput
   }
 
 
@@ -2436,7 +2454,8 @@ export namespace Prisma {
     phone?: boolean
     wallet?: boolean | Customer$walletArgs<ExtArgs>
     comments?: boolean | Customer$commentsArgs<ExtArgs>
-    Like?: boolean | Customer$LikeArgs<ExtArgs>
+    likes?: boolean | Customer$likesArgs<ExtArgs>
+    loves?: boolean | Customer$lovesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -2453,7 +2472,8 @@ export namespace Prisma {
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wallet?: boolean | Customer$walletArgs<ExtArgs>
     comments?: boolean | Customer$commentsArgs<ExtArgs>
-    Like?: boolean | Customer$LikeArgs<ExtArgs>
+    likes?: boolean | Customer$likesArgs<ExtArgs>
+    loves?: boolean | Customer$lovesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2462,7 +2482,8 @@ export namespace Prisma {
     objects: {
       wallet: Prisma.$WalletPayload<ExtArgs> | null
       comments: Prisma.$CommentPayload<ExtArgs>[]
-      Like: Prisma.$LikePayload<ExtArgs>[]
+      likes: Prisma.$LikePayload<ExtArgs>[]
+      loves: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2811,7 +2832,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     wallet<T extends Customer$walletArgs<ExtArgs> = {}>(args?: Subset<T, Customer$walletArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     comments<T extends Customer$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Like<T extends Customer$LikeArgs<ExtArgs> = {}>(args?: Subset<T, Customer$LikeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends Customer$likesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    loves<T extends Customer$lovesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$lovesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3231,9 +3253,9 @@ export namespace Prisma {
   }
 
   /**
-   * Customer.Like
+   * Customer.likes
    */
-  export type Customer$LikeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Customer$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Like
      */
@@ -3252,6 +3274,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.loves
+   */
+  export type Customer$lovesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    cursor?: ProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
   }
 
   /**
@@ -5368,7 +5414,8 @@ export namespace Prisma {
     price?: boolean
     stock?: boolean
     category?: boolean
-    Like?: boolean | Product$LikeArgs<ExtArgs>
+    likedBy?: boolean | Product$likedByArgs<ExtArgs>
+    lovedBy?: boolean | Product$lovedByArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -5384,14 +5431,16 @@ export namespace Prisma {
 
   export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "stock" | "category", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Like?: boolean | Product$LikeArgs<ExtArgs>
+    likedBy?: boolean | Product$likedByArgs<ExtArgs>
+    lovedBy?: boolean | Product$lovedByArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {
-      Like: Prisma.$LikePayload<ExtArgs>[]
+      likedBy: Prisma.$LikePayload<ExtArgs>[]
+      lovedBy: Prisma.$CustomerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5739,7 +5788,8 @@ export namespace Prisma {
    */
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Like<T extends Product$LikeArgs<ExtArgs> = {}>(args?: Subset<T, Product$LikeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likedBy<T extends Product$likedByArgs<ExtArgs> = {}>(args?: Subset<T, Product$likedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lovedBy<T extends Product$lovedByArgs<ExtArgs> = {}>(args?: Subset<T, Product$lovedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6117,9 +6167,9 @@ export namespace Prisma {
   }
 
   /**
-   * Product.Like
+   * Product.likedBy
    */
-  export type Product$LikeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Product$likedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Like
      */
@@ -6138,6 +6188,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Product.lovedBy
+   */
+  export type Product$lovedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Customer
+     */
+    omit?: CustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
+    orderBy?: CustomerOrderByWithRelationInput | CustomerOrderByWithRelationInput[]
+    cursor?: CustomerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
   }
 
   /**
@@ -8191,7 +8265,8 @@ export namespace Prisma {
     phone?: StringFilter<"Customer"> | string
     wallet?: XOR<WalletNullableScalarRelationFilter, WalletWhereInput> | null
     comments?: CommentListRelationFilter
-    Like?: LikeListRelationFilter
+    likes?: LikeListRelationFilter
+    loves?: ProductListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -8201,7 +8276,8 @@ export namespace Prisma {
     phone?: SortOrder
     wallet?: WalletOrderByWithRelationInput
     comments?: CommentOrderByRelationAggregateInput
-    Like?: LikeOrderByRelationAggregateInput
+    likes?: LikeOrderByRelationAggregateInput
+    loves?: ProductOrderByRelationAggregateInput
     _relevance?: CustomerOrderByRelevanceInput
   }
 
@@ -8215,7 +8291,8 @@ export namespace Prisma {
     name?: StringFilter<"Customer"> | string
     wallet?: XOR<WalletNullableScalarRelationFilter, WalletWhereInput> | null
     comments?: CommentListRelationFilter
-    Like?: LikeListRelationFilter
+    likes?: LikeListRelationFilter
+    loves?: ProductListRelationFilter
   }, "id" | "email" | "phone">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -8348,7 +8425,8 @@ export namespace Prisma {
     price?: IntFilter<"Product"> | number
     stock?: IntFilter<"Product"> | number
     category?: StringFilter<"Product"> | string
-    Like?: LikeListRelationFilter
+    likedBy?: LikeListRelationFilter
+    lovedBy?: CustomerListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -8357,7 +8435,8 @@ export namespace Prisma {
     price?: SortOrder
     stock?: SortOrder
     category?: SortOrder
-    Like?: LikeOrderByRelationAggregateInput
+    likedBy?: LikeOrderByRelationAggregateInput
+    lovedBy?: CustomerOrderByRelationAggregateInput
     _relevance?: ProductOrderByRelevanceInput
   }
 
@@ -8370,7 +8449,8 @@ export namespace Prisma {
     price?: IntFilter<"Product"> | number
     stock?: IntFilter<"Product"> | number
     category?: StringFilter<"Product"> | string
-    Like?: LikeListRelationFilter
+    likedBy?: LikeListRelationFilter
+    lovedBy?: CustomerListRelationFilter
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
@@ -8529,7 +8609,8 @@ export namespace Prisma {
     phone: string
     wallet?: WalletCreateNestedOneWithoutCustomerInput
     comments?: CommentCreateNestedManyWithoutCustomerInput
-    Like?: LikeCreateNestedManyWithoutCustomerInput
+    likes?: LikeCreateNestedManyWithoutCustomerInput
+    loves?: ProductCreateNestedManyWithoutLovedByInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -8539,7 +8620,8 @@ export namespace Prisma {
     phone: string
     wallet?: WalletUncheckedCreateNestedOneWithoutCustomerInput
     comments?: CommentUncheckedCreateNestedManyWithoutCustomerInput
-    Like?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+    likes?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+    loves?: ProductUncheckedCreateNestedManyWithoutLovedByInput
   }
 
   export type CustomerUpdateInput = {
@@ -8549,7 +8631,8 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     wallet?: WalletUpdateOneWithoutCustomerNestedInput
     comments?: CommentUpdateManyWithoutCustomerNestedInput
-    Like?: LikeUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUpdateManyWithoutLovedByNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -8559,7 +8642,8 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     wallet?: WalletUncheckedUpdateOneWithoutCustomerNestedInput
     comments?: CommentUncheckedUpdateManyWithoutCustomerNestedInput
-    Like?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUncheckedUpdateManyWithoutLovedByNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -8675,7 +8759,8 @@ export namespace Prisma {
     price: number
     stock: number
     category: string
-    Like?: LikeCreateNestedManyWithoutProductInput
+    likedBy?: LikeCreateNestedManyWithoutProductInput
+    lovedBy?: CustomerCreateNestedManyWithoutLovesInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -8684,7 +8769,8 @@ export namespace Prisma {
     price: number
     stock: number
     category: string
-    Like?: LikeUncheckedCreateNestedManyWithoutProductInput
+    likedBy?: LikeUncheckedCreateNestedManyWithoutProductInput
+    lovedBy?: CustomerUncheckedCreateNestedManyWithoutLovesInput
   }
 
   export type ProductUpdateInput = {
@@ -8693,7 +8779,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
-    Like?: LikeUpdateManyWithoutProductNestedInput
+    likedBy?: LikeUpdateManyWithoutProductNestedInput
+    lovedBy?: CustomerUpdateManyWithoutLovesNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -8702,7 +8789,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
-    Like?: LikeUncheckedUpdateManyWithoutProductNestedInput
+    likedBy?: LikeUncheckedUpdateManyWithoutProductNestedInput
+    lovedBy?: CustomerUncheckedUpdateManyWithoutLovesNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -8769,8 +8857,8 @@ export namespace Prisma {
   }
 
   export type LikeCreateInput = {
-    customer: CustomerCreateNestedOneWithoutLikeInput
-    product: ProductCreateNestedOneWithoutLikeInput
+    customer: CustomerCreateNestedOneWithoutLikesInput
+    product: ProductCreateNestedOneWithoutLikedByInput
   }
 
   export type LikeUncheckedCreateInput = {
@@ -8779,8 +8867,8 @@ export namespace Prisma {
   }
 
   export type LikeUpdateInput = {
-    customer?: CustomerUpdateOneRequiredWithoutLikeNestedInput
-    product?: ProductUpdateOneRequiredWithoutLikeNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutLikesNestedInput
+    product?: ProductUpdateOneRequiredWithoutLikedByNestedInput
   }
 
   export type LikeUncheckedUpdateInput = {
@@ -8873,11 +8961,21 @@ export namespace Prisma {
     none?: LikeWhereInput
   }
 
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
+  }
+
   export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type LikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9045,6 +9143,16 @@ export namespace Prisma {
     balance?: SortOrder
   }
 
+  export type CustomerListRelationFilter = {
+    every?: CustomerWhereInput
+    some?: CustomerWhereInput
+    none?: CustomerWhereInput
+  }
+
+  export type CustomerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProductOrderByRelevanceInput = {
     fields: ProductOrderByRelevanceFieldEnum | ProductOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -9197,6 +9305,12 @@ export namespace Prisma {
     connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
   }
 
+  export type ProductCreateNestedManyWithoutLovedByInput = {
+    create?: XOR<ProductCreateWithoutLovedByInput, ProductUncheckedCreateWithoutLovedByInput> | ProductCreateWithoutLovedByInput[] | ProductUncheckedCreateWithoutLovedByInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutLovedByInput | ProductCreateOrConnectWithoutLovedByInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
   export type WalletUncheckedCreateNestedOneWithoutCustomerInput = {
     create?: XOR<WalletCreateWithoutCustomerInput, WalletUncheckedCreateWithoutCustomerInput>
     connectOrCreate?: WalletCreateOrConnectWithoutCustomerInput
@@ -9215,6 +9329,12 @@ export namespace Prisma {
     connectOrCreate?: LikeCreateOrConnectWithoutCustomerInput | LikeCreateOrConnectWithoutCustomerInput[]
     createMany?: LikeCreateManyCustomerInputEnvelope
     connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type ProductUncheckedCreateNestedManyWithoutLovedByInput = {
+    create?: XOR<ProductCreateWithoutLovedByInput, ProductUncheckedCreateWithoutLovedByInput> | ProductCreateWithoutLovedByInput[] | ProductUncheckedCreateWithoutLovedByInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutLovedByInput | ProductCreateOrConnectWithoutLovedByInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
   export type WalletUpdateOneWithoutCustomerNestedInput = {
@@ -9255,6 +9375,19 @@ export namespace Prisma {
     deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
   }
 
+  export type ProductUpdateManyWithoutLovedByNestedInput = {
+    create?: XOR<ProductCreateWithoutLovedByInput, ProductUncheckedCreateWithoutLovedByInput> | ProductCreateWithoutLovedByInput[] | ProductUncheckedCreateWithoutLovedByInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutLovedByInput | ProductCreateOrConnectWithoutLovedByInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutLovedByInput | ProductUpsertWithWhereUniqueWithoutLovedByInput[]
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutLovedByInput | ProductUpdateWithWhereUniqueWithoutLovedByInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutLovedByInput | ProductUpdateManyWithWhereWithoutLovedByInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateOneWithoutCustomerNestedInput = {
     create?: XOR<WalletCreateWithoutCustomerInput, WalletUncheckedCreateWithoutCustomerInput>
     connectOrCreate?: WalletCreateOrConnectWithoutCustomerInput
@@ -9291,6 +9424,19 @@ export namespace Prisma {
     update?: LikeUpdateWithWhereUniqueWithoutCustomerInput | LikeUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: LikeUpdateManyWithWhereWithoutCustomerInput | LikeUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type ProductUncheckedUpdateManyWithoutLovedByNestedInput = {
+    create?: XOR<ProductCreateWithoutLovedByInput, ProductUncheckedCreateWithoutLovedByInput> | ProductCreateWithoutLovedByInput[] | ProductUncheckedCreateWithoutLovedByInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutLovedByInput | ProductCreateOrConnectWithoutLovedByInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutLovedByInput | ProductUpsertWithWhereUniqueWithoutLovedByInput[]
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutLovedByInput | ProductUpdateWithWhereUniqueWithoutLovedByInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutLovedByInput | ProductUpdateManyWithWhereWithoutLovedByInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
   export type CustomerCreateNestedOneWithoutCommentsInput = {
@@ -9340,11 +9486,23 @@ export namespace Prisma {
     connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
   }
 
+  export type CustomerCreateNestedManyWithoutLovesInput = {
+    create?: XOR<CustomerCreateWithoutLovesInput, CustomerUncheckedCreateWithoutLovesInput> | CustomerCreateWithoutLovesInput[] | CustomerUncheckedCreateWithoutLovesInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutLovesInput | CustomerCreateOrConnectWithoutLovesInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+  }
+
   export type LikeUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<LikeCreateWithoutProductInput, LikeUncheckedCreateWithoutProductInput> | LikeCreateWithoutProductInput[] | LikeUncheckedCreateWithoutProductInput[]
     connectOrCreate?: LikeCreateOrConnectWithoutProductInput | LikeCreateOrConnectWithoutProductInput[]
     createMany?: LikeCreateManyProductInputEnvelope
     connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type CustomerUncheckedCreateNestedManyWithoutLovesInput = {
+    create?: XOR<CustomerCreateWithoutLovesInput, CustomerUncheckedCreateWithoutLovesInput> | CustomerCreateWithoutLovesInput[] | CustomerUncheckedCreateWithoutLovesInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutLovesInput | CustomerCreateOrConnectWithoutLovesInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
   export type LikeUpdateManyWithoutProductNestedInput = {
@@ -9361,6 +9519,19 @@ export namespace Prisma {
     deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
   }
 
+  export type CustomerUpdateManyWithoutLovesNestedInput = {
+    create?: XOR<CustomerCreateWithoutLovesInput, CustomerUncheckedCreateWithoutLovesInput> | CustomerCreateWithoutLovesInput[] | CustomerUncheckedCreateWithoutLovesInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutLovesInput | CustomerCreateOrConnectWithoutLovesInput[]
+    upsert?: CustomerUpsertWithWhereUniqueWithoutLovesInput | CustomerUpsertWithWhereUniqueWithoutLovesInput[]
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    update?: CustomerUpdateWithWhereUniqueWithoutLovesInput | CustomerUpdateWithWhereUniqueWithoutLovesInput[]
+    updateMany?: CustomerUpdateManyWithWhereWithoutLovesInput | CustomerUpdateManyWithWhereWithoutLovesInput[]
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+  }
+
   export type LikeUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<LikeCreateWithoutProductInput, LikeUncheckedCreateWithoutProductInput> | LikeCreateWithoutProductInput[] | LikeUncheckedCreateWithoutProductInput[]
     connectOrCreate?: LikeCreateOrConnectWithoutProductInput | LikeCreateOrConnectWithoutProductInput[]
@@ -9375,36 +9546,49 @@ export namespace Prisma {
     deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
   }
 
+  export type CustomerUncheckedUpdateManyWithoutLovesNestedInput = {
+    create?: XOR<CustomerCreateWithoutLovesInput, CustomerUncheckedCreateWithoutLovesInput> | CustomerCreateWithoutLovesInput[] | CustomerUncheckedCreateWithoutLovesInput[]
+    connectOrCreate?: CustomerCreateOrConnectWithoutLovesInput | CustomerCreateOrConnectWithoutLovesInput[]
+    upsert?: CustomerUpsertWithWhereUniqueWithoutLovesInput | CustomerUpsertWithWhereUniqueWithoutLovesInput[]
+    set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+    update?: CustomerUpdateWithWhereUniqueWithoutLovesInput | CustomerUpdateWithWhereUniqueWithoutLovesInput[]
+    updateMany?: CustomerUpdateManyWithWhereWithoutLovesInput | CustomerUpdateManyWithWhereWithoutLovesInput[]
+    deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type CustomerCreateNestedOneWithoutLikeInput = {
-    create?: XOR<CustomerCreateWithoutLikeInput, CustomerUncheckedCreateWithoutLikeInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutLikeInput
+  export type CustomerCreateNestedOneWithoutLikesInput = {
+    create?: XOR<CustomerCreateWithoutLikesInput, CustomerUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLikesInput
     connect?: CustomerWhereUniqueInput
   }
 
-  export type ProductCreateNestedOneWithoutLikeInput = {
-    create?: XOR<ProductCreateWithoutLikeInput, ProductUncheckedCreateWithoutLikeInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutLikeInput
+  export type ProductCreateNestedOneWithoutLikedByInput = {
+    create?: XOR<ProductCreateWithoutLikedByInput, ProductUncheckedCreateWithoutLikedByInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutLikedByInput
     connect?: ProductWhereUniqueInput
   }
 
-  export type CustomerUpdateOneRequiredWithoutLikeNestedInput = {
-    create?: XOR<CustomerCreateWithoutLikeInput, CustomerUncheckedCreateWithoutLikeInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutLikeInput
-    upsert?: CustomerUpsertWithoutLikeInput
+  export type CustomerUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<CustomerCreateWithoutLikesInput, CustomerUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLikesInput
+    upsert?: CustomerUpsertWithoutLikesInput
     connect?: CustomerWhereUniqueInput
-    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutLikeInput, CustomerUpdateWithoutLikeInput>, CustomerUncheckedUpdateWithoutLikeInput>
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutLikesInput, CustomerUpdateWithoutLikesInput>, CustomerUncheckedUpdateWithoutLikesInput>
   }
 
-  export type ProductUpdateOneRequiredWithoutLikeNestedInput = {
-    create?: XOR<ProductCreateWithoutLikeInput, ProductUncheckedCreateWithoutLikeInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutLikeInput
-    upsert?: ProductUpsertWithoutLikeInput
+  export type ProductUpdateOneRequiredWithoutLikedByNestedInput = {
+    create?: XOR<ProductCreateWithoutLikedByInput, ProductUncheckedCreateWithoutLikedByInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutLikedByInput
+    upsert?: ProductUpsertWithoutLikedByInput
     connect?: ProductWhereUniqueInput
-    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutLikeInput, ProductUpdateWithoutLikeInput>, ProductUncheckedUpdateWithoutLikeInput>
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutLikedByInput, ProductUpdateWithoutLikedByInput>, ProductUncheckedUpdateWithoutLikedByInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -9584,7 +9768,7 @@ export namespace Prisma {
   }
 
   export type LikeCreateWithoutCustomerInput = {
-    product: ProductCreateNestedOneWithoutLikeInput
+    product: ProductCreateNestedOneWithoutLikedByInput
   }
 
   export type LikeUncheckedCreateWithoutCustomerInput = {
@@ -9599,6 +9783,29 @@ export namespace Prisma {
   export type LikeCreateManyCustomerInputEnvelope = {
     data: LikeCreateManyCustomerInput | LikeCreateManyCustomerInput[]
     skipDuplicates?: boolean
+  }
+
+  export type ProductCreateWithoutLovedByInput = {
+    id: string
+    name: string
+    price: number
+    stock: number
+    category: string
+    likedBy?: LikeCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutLovedByInput = {
+    id: string
+    name: string
+    price: number
+    stock: number
+    category: string
+    likedBy?: LikeUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutLovedByInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutLovedByInput, ProductUncheckedCreateWithoutLovedByInput>
   }
 
   export type WalletUpsertWithoutCustomerInput = {
@@ -9672,13 +9879,41 @@ export namespace Prisma {
     product_id?: StringFilter<"Like"> | string
   }
 
+  export type ProductUpsertWithWhereUniqueWithoutLovedByInput = {
+    where: ProductWhereUniqueInput
+    update: XOR<ProductUpdateWithoutLovedByInput, ProductUncheckedUpdateWithoutLovedByInput>
+    create: XOR<ProductCreateWithoutLovedByInput, ProductUncheckedCreateWithoutLovedByInput>
+  }
+
+  export type ProductUpdateWithWhereUniqueWithoutLovedByInput = {
+    where: ProductWhereUniqueInput
+    data: XOR<ProductUpdateWithoutLovedByInput, ProductUncheckedUpdateWithoutLovedByInput>
+  }
+
+  export type ProductUpdateManyWithWhereWithoutLovedByInput = {
+    where: ProductScalarWhereInput
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutLovedByInput>
+  }
+
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: StringFilter<"Product"> | string
+    name?: StringFilter<"Product"> | string
+    price?: IntFilter<"Product"> | number
+    stock?: IntFilter<"Product"> | number
+    category?: StringFilter<"Product"> | string
+  }
+
   export type CustomerCreateWithoutCommentsInput = {
     id: string
     name: string
     email: string
     phone: string
     wallet?: WalletCreateNestedOneWithoutCustomerInput
-    Like?: LikeCreateNestedManyWithoutCustomerInput
+    likes?: LikeCreateNestedManyWithoutCustomerInput
+    loves?: ProductCreateNestedManyWithoutLovedByInput
   }
 
   export type CustomerUncheckedCreateWithoutCommentsInput = {
@@ -9687,7 +9922,8 @@ export namespace Prisma {
     email: string
     phone: string
     wallet?: WalletUncheckedCreateNestedOneWithoutCustomerInput
-    Like?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+    likes?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+    loves?: ProductUncheckedCreateNestedManyWithoutLovedByInput
   }
 
   export type CustomerCreateOrConnectWithoutCommentsInput = {
@@ -9712,7 +9948,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     wallet?: WalletUpdateOneWithoutCustomerNestedInput
-    Like?: LikeUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUpdateManyWithoutLovedByNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutCommentsInput = {
@@ -9721,7 +9958,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     wallet?: WalletUncheckedUpdateOneWithoutCustomerNestedInput
-    Like?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUncheckedUpdateManyWithoutLovedByNestedInput
   }
 
   export type CustomerCreateWithoutWalletInput = {
@@ -9730,7 +9968,8 @@ export namespace Prisma {
     email: string
     phone: string
     comments?: CommentCreateNestedManyWithoutCustomerInput
-    Like?: LikeCreateNestedManyWithoutCustomerInput
+    likes?: LikeCreateNestedManyWithoutCustomerInput
+    loves?: ProductCreateNestedManyWithoutLovedByInput
   }
 
   export type CustomerUncheckedCreateWithoutWalletInput = {
@@ -9739,7 +9978,8 @@ export namespace Prisma {
     email: string
     phone: string
     comments?: CommentUncheckedCreateNestedManyWithoutCustomerInput
-    Like?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+    likes?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+    loves?: ProductUncheckedCreateNestedManyWithoutLovedByInput
   }
 
   export type CustomerCreateOrConnectWithoutWalletInput = {
@@ -9764,7 +10004,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     comments?: CommentUpdateManyWithoutCustomerNestedInput
-    Like?: LikeUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUpdateManyWithoutLovedByNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutWalletInput = {
@@ -9773,11 +10014,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     comments?: CommentUncheckedUpdateManyWithoutCustomerNestedInput
-    Like?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUncheckedUpdateManyWithoutLovedByNestedInput
   }
 
   export type LikeCreateWithoutProductInput = {
-    customer: CustomerCreateNestedOneWithoutLikeInput
+    customer: CustomerCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutProductInput = {
@@ -9792,6 +10034,31 @@ export namespace Prisma {
   export type LikeCreateManyProductInputEnvelope = {
     data: LikeCreateManyProductInput | LikeCreateManyProductInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CustomerCreateWithoutLovesInput = {
+    id: string
+    name: string
+    email: string
+    phone: string
+    wallet?: WalletCreateNestedOneWithoutCustomerInput
+    comments?: CommentCreateNestedManyWithoutCustomerInput
+    likes?: LikeCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutLovesInput = {
+    id: string
+    name: string
+    email: string
+    phone: string
+    wallet?: WalletUncheckedCreateNestedOneWithoutCustomerInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCustomerInput
+    likes?: LikeUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutLovesInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutLovesInput, CustomerUncheckedCreateWithoutLovesInput>
   }
 
   export type LikeUpsertWithWhereUniqueWithoutProductInput = {
@@ -9810,104 +10077,138 @@ export namespace Prisma {
     data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyWithoutProductInput>
   }
 
-  export type CustomerCreateWithoutLikeInput = {
+  export type CustomerUpsertWithWhereUniqueWithoutLovesInput = {
+    where: CustomerWhereUniqueInput
+    update: XOR<CustomerUpdateWithoutLovesInput, CustomerUncheckedUpdateWithoutLovesInput>
+    create: XOR<CustomerCreateWithoutLovesInput, CustomerUncheckedCreateWithoutLovesInput>
+  }
+
+  export type CustomerUpdateWithWhereUniqueWithoutLovesInput = {
+    where: CustomerWhereUniqueInput
+    data: XOR<CustomerUpdateWithoutLovesInput, CustomerUncheckedUpdateWithoutLovesInput>
+  }
+
+  export type CustomerUpdateManyWithWhereWithoutLovesInput = {
+    where: CustomerScalarWhereInput
+    data: XOR<CustomerUpdateManyMutationInput, CustomerUncheckedUpdateManyWithoutLovesInput>
+  }
+
+  export type CustomerScalarWhereInput = {
+    AND?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+    OR?: CustomerScalarWhereInput[]
+    NOT?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
+    id?: StringFilter<"Customer"> | string
+    name?: StringFilter<"Customer"> | string
+    email?: StringFilter<"Customer"> | string
+    phone?: StringFilter<"Customer"> | string
+  }
+
+  export type CustomerCreateWithoutLikesInput = {
     id: string
     name: string
     email: string
     phone: string
     wallet?: WalletCreateNestedOneWithoutCustomerInput
     comments?: CommentCreateNestedManyWithoutCustomerInput
+    loves?: ProductCreateNestedManyWithoutLovedByInput
   }
 
-  export type CustomerUncheckedCreateWithoutLikeInput = {
+  export type CustomerUncheckedCreateWithoutLikesInput = {
     id: string
     name: string
     email: string
     phone: string
     wallet?: WalletUncheckedCreateNestedOneWithoutCustomerInput
     comments?: CommentUncheckedCreateNestedManyWithoutCustomerInput
+    loves?: ProductUncheckedCreateNestedManyWithoutLovedByInput
   }
 
-  export type CustomerCreateOrConnectWithoutLikeInput = {
+  export type CustomerCreateOrConnectWithoutLikesInput = {
     where: CustomerWhereUniqueInput
-    create: XOR<CustomerCreateWithoutLikeInput, CustomerUncheckedCreateWithoutLikeInput>
+    create: XOR<CustomerCreateWithoutLikesInput, CustomerUncheckedCreateWithoutLikesInput>
   }
 
-  export type ProductCreateWithoutLikeInput = {
+  export type ProductCreateWithoutLikedByInput = {
     id: string
     name: string
     price: number
     stock: number
     category: string
+    lovedBy?: CustomerCreateNestedManyWithoutLovesInput
   }
 
-  export type ProductUncheckedCreateWithoutLikeInput = {
+  export type ProductUncheckedCreateWithoutLikedByInput = {
     id: string
     name: string
     price: number
     stock: number
     category: string
+    lovedBy?: CustomerUncheckedCreateNestedManyWithoutLovesInput
   }
 
-  export type ProductCreateOrConnectWithoutLikeInput = {
+  export type ProductCreateOrConnectWithoutLikedByInput = {
     where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutLikeInput, ProductUncheckedCreateWithoutLikeInput>
+    create: XOR<ProductCreateWithoutLikedByInput, ProductUncheckedCreateWithoutLikedByInput>
   }
 
-  export type CustomerUpsertWithoutLikeInput = {
-    update: XOR<CustomerUpdateWithoutLikeInput, CustomerUncheckedUpdateWithoutLikeInput>
-    create: XOR<CustomerCreateWithoutLikeInput, CustomerUncheckedCreateWithoutLikeInput>
+  export type CustomerUpsertWithoutLikesInput = {
+    update: XOR<CustomerUpdateWithoutLikesInput, CustomerUncheckedUpdateWithoutLikesInput>
+    create: XOR<CustomerCreateWithoutLikesInput, CustomerUncheckedCreateWithoutLikesInput>
     where?: CustomerWhereInput
   }
 
-  export type CustomerUpdateToOneWithWhereWithoutLikeInput = {
+  export type CustomerUpdateToOneWithWhereWithoutLikesInput = {
     where?: CustomerWhereInput
-    data: XOR<CustomerUpdateWithoutLikeInput, CustomerUncheckedUpdateWithoutLikeInput>
+    data: XOR<CustomerUpdateWithoutLikesInput, CustomerUncheckedUpdateWithoutLikesInput>
   }
 
-  export type CustomerUpdateWithoutLikeInput = {
+  export type CustomerUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     wallet?: WalletUpdateOneWithoutCustomerNestedInput
     comments?: CommentUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUpdateManyWithoutLovedByNestedInput
   }
 
-  export type CustomerUncheckedUpdateWithoutLikeInput = {
+  export type CustomerUncheckedUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     wallet?: WalletUncheckedUpdateOneWithoutCustomerNestedInput
     comments?: CommentUncheckedUpdateManyWithoutCustomerNestedInput
+    loves?: ProductUncheckedUpdateManyWithoutLovedByNestedInput
   }
 
-  export type ProductUpsertWithoutLikeInput = {
-    update: XOR<ProductUpdateWithoutLikeInput, ProductUncheckedUpdateWithoutLikeInput>
-    create: XOR<ProductCreateWithoutLikeInput, ProductUncheckedCreateWithoutLikeInput>
+  export type ProductUpsertWithoutLikedByInput = {
+    update: XOR<ProductUpdateWithoutLikedByInput, ProductUncheckedUpdateWithoutLikedByInput>
+    create: XOR<ProductCreateWithoutLikedByInput, ProductUncheckedCreateWithoutLikedByInput>
     where?: ProductWhereInput
   }
 
-  export type ProductUpdateToOneWithWhereWithoutLikeInput = {
+  export type ProductUpdateToOneWithWhereWithoutLikedByInput = {
     where?: ProductWhereInput
-    data: XOR<ProductUpdateWithoutLikeInput, ProductUncheckedUpdateWithoutLikeInput>
+    data: XOR<ProductUpdateWithoutLikedByInput, ProductUncheckedUpdateWithoutLikedByInput>
   }
 
-  export type ProductUpdateWithoutLikeInput = {
+  export type ProductUpdateWithoutLikedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    lovedBy?: CustomerUpdateManyWithoutLovesNestedInput
   }
 
-  export type ProductUncheckedUpdateWithoutLikeInput = {
+  export type ProductUncheckedUpdateWithoutLikedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     category?: StringFieldUpdateOperationsInput | string
+    lovedBy?: CustomerUncheckedUpdateManyWithoutLovesNestedInput
   }
 
   export type CommentCreateManyCustomerInput = {
@@ -9938,7 +10239,7 @@ export namespace Prisma {
   }
 
   export type LikeUpdateWithoutCustomerInput = {
-    product?: ProductUpdateOneRequiredWithoutLikeNestedInput
+    product?: ProductUpdateOneRequiredWithoutLikedByNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutCustomerInput = {
@@ -9949,12 +10250,38 @@ export namespace Prisma {
     product_id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ProductUpdateWithoutLovedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    likedBy?: LikeUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutLovedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    likedBy?: LikeUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateManyWithoutLovedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+  }
+
   export type LikeCreateManyProductInput = {
     customer_id: string
   }
 
   export type LikeUpdateWithoutProductInput = {
-    customer?: CustomerUpdateOneRequiredWithoutLikeNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutProductInput = {
@@ -9963,6 +10290,33 @@ export namespace Prisma {
 
   export type LikeUncheckedUpdateManyWithoutProductInput = {
     customer_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CustomerUpdateWithoutLovesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    wallet?: WalletUpdateOneWithoutCustomerNestedInput
+    comments?: CommentUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutLovesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    wallet?: WalletUncheckedUpdateOneWithoutCustomerNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCustomerNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateManyWithoutLovesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
   }
 
 
