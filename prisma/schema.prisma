@@ -28,6 +28,16 @@ model Customer {
   @@map("customers")
 }
 
+model Comment {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  customer_id String
+  customer    Customer @relation(fields: [customer_id], references: [id])
+
+  @@map("comments")
+}
+
 model Wallet {
   id          String   @id
   balance     Int
