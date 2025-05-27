@@ -159,6 +159,11 @@ exports.Prisma.CategoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LikeScalarFieldEnum = {
+  customer_id: 'customer_id',
+  product_id: 'product_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
