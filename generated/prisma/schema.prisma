@@ -26,6 +26,7 @@ model Customer {
   phone    String    @unique
   wallet   Wallet?
   comments Comment[]
+  Like     Like[]
 
   @@map("customers")
 }
@@ -55,6 +56,7 @@ model Product {
   price    Int
   stock    Int
   category String
+  Like     Like[]
 
   @@map("products")
 }
@@ -65,4 +67,15 @@ model Category {
   createdAt DateTime @default(now())
 
   @@map("categories")
+}
+
+model Like {
+  customer_id String
+  product_id  String
+
+  customer Customer @relation(fields: [customer_id], references: [id])
+  product  Product  @relation(fields: [product_id], references: [id])
+
+  @@id([customer_id, product_id])
+  @@map("likes")
 }

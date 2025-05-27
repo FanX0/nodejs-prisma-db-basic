@@ -159,6 +159,11 @@ exports.Prisma.CategoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LikeScalarFieldEnum = {
+  customer_id: 'customer_id',
+  product_id: 'product_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -202,6 +207,11 @@ exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.LikeOrderByRelevanceFieldEnum = {
+  customer_id: 'customer_id',
+  product_id: 'product_id'
+};
+
 
 exports.Prisma.ModelName = {
   sample: 'sample',
@@ -209,7 +219,8 @@ exports.Prisma.ModelName = {
   Comment: 'Comment',
   Wallet: 'Wallet',
   Product: 'Product',
-  Category: 'Category'
+  Category: 'Category',
+  Like: 'Like'
 };
 
 /**
