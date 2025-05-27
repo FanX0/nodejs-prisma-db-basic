@@ -140,6 +140,12 @@ exports.Prisma.ProductScalarFieldEnum = {
   category: 'category'
 };
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -163,11 +169,16 @@ exports.Prisma.ProductOrderByRelevanceFieldEnum = {
   category: 'category'
 };
 
+exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
+  name: 'name'
+};
+
 
 exports.Prisma.ModelName = {
   sample: 'sample',
   Customer: 'Customer',
-  Product: 'Product'
+  Product: 'Product',
+  Category: 'Category'
 };
 
 /**
