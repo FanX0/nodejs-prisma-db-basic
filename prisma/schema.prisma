@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model loves {
+  A         String    @db.VarChar(100)
+  B         String    @db.VarChar(100)
+  customers customers @relation(fields: [A], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customer_loves_fk")
+  products  products  @relation(fields: [B], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "product_loves_fk")
+
+  @@id([A, B])
+  @@index([B], map: "product_loves_fk")
+  @@map("_loves")
+}
+
+model categories {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @db.DateTime(0)
+}
+
+model comments {
+  id          Int       @id @default(autoincrement())
+  customer_id String    @db.VarChar(100)
+  title       String    @db.VarChar(200)
+  description String?   @db.Text
+  customers   customers @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comments_customer_id_fk")
+
+  @@index([customer_id], map: "comments_customer_id_fk")
+}
+
+model customers {
+  id       String     @id @db.VarChar(100)
+  name     String     @db.VarChar(100)
+  email    String     @unique(map: "customers_email_unique") @db.VarChar(100)
+  phone    String     @unique(map: "customers_phone_unique") @db.VarChar(100)
+  loves    loves[]
+  comments comments[]
+  likes    likes[]
+  wallet   wallet?
+}
+
+model likes {
+  customer_id String    @db.VarChar(100)
+  product_id  String    @db.VarChar(100)
+  customers   customers @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "likes_customer_id_fk")
+  products    products  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "likes_product_id_fk")
+
+  @@id([customer_id, product_id])
+  @@index([product_id], map: "likes_product_id_fk")
+}
+
+model products {
+  id       String  @id @db.VarChar(100)
+  name     String  @db.VarChar(100)
+  price    Int
+  stock    Int
+  category String  @db.VarChar(100)
+  loves    loves[]
+  likes    likes[]
+}
+
+model sample {
+  id   String @id @db.VarChar(100)
+  name String @db.VarChar(100)
+}
+
+model wallet {
+  id          String    @id @db.VarChar(100)
+  balance     Int
+  customer_id String    @unique(map: "wallet_customer_id_unique") @db.VarChar(100)
+  customers   customers @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "wallet_customer_id_fk")
+}
