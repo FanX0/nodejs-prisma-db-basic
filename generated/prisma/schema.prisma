@@ -34,10 +34,10 @@ model Customer {
 
 model Comment {
   id          Int      @id @default(autoincrement())
-  title       String
-  description String?
-  customer_id String
-  customer    Customer @relation(fields: [customer_id], references: [id])
+  title       String   @db.VarChar(200)
+  description String?  @db.Text
+  customer_id String   @db.VarChar(100)
+  customer    Customer @relation(fields: [customer_id], references: [id], map: "customer_to_comment_fk")
 
   @@map("comments")
 }
