@@ -14,7 +14,6 @@ describe('Prisma Client', function () {
         });
         console.info(like);
     });
-
     it('should can find one with many to many relation', async () => {
         const customer = await prismaClient.customer.findUnique({
             where: {
@@ -28,10 +27,8 @@ describe('Prisma Client', function () {
                 }
             }
         });
-
         console.info(customer);
     });
-
     it('should create implicit relation', async () => {
         const customer = await prismaClient.customer.update({
             where: {
@@ -53,10 +50,8 @@ describe('Prisma Client', function () {
                 loves: true
             }
         })
-
         console.info(customer)
     })
-
     it('should find many implicit relation', async () => {
         const customers = await prismaClient.customer.findMany({
             where: {
@@ -71,9 +66,7 @@ describe('Prisma Client', function () {
             include: {
                 loves: true
             }
-
         });
-
         console.info(customers)
     })
 });
